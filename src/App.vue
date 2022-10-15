@@ -47,18 +47,53 @@ export default {
           .then(QuerySnapshot => {
               let docs = QuerySnapshot.docs.map(doc => doc.data())
               console.log("docs " + docs)
-              this.documents = docs
+            this.documents = docs.sort((a,b) => {
+              console.log("sorting")
+              let aArr = a.date.split("-");
+              let bArr = b.date.split("-");
+              if(Number(aArr[1]) > Number(bArr[1])){
+                return 1;
+              } else if (Number(aArr[1]) < Number(bArr[1])){
+                return -1;
+              } else {
+                if(Number(aArr[0]) > Number(bArr[0])){
+                  return 1;
+                } else if (Number(aArr[0]) < Number(bArr[0])){
+                  return -1;
+                } else {
+                  return 0;
+                }
+              }
+            })
+            console.log(this.documents);
           })
 
           if(this.documents.length > 0) {
             console.log(this.documents)
-              this.labels = this.documents.map((obj) => obj.date)
+              this.labels = this.documents.map((obj) => {
+                    let newArr = obj.date.split("-");
+                    let newDateArr = newArr[1] +"-"+ newArr[0]+"-"+ newArr[2];
+                    console.log("new DAte", newDateArr);
+                    return newDateArr;
+              })
               this.itemLabels = this.documents.map((obj) => obj.redditPostTitle)
               this.chartData = this.documents.map((obj) => obj.currentPrice)
               this.itemURLs = this.documents.map((obj) => obj.redditLink)
               this.loaded = true
           }
       },
+    // async correctDates(docs){
+    //   this.documents.map((obj) =>{
+    //     let newArr = obj.date.split("-");
+    //     let newDateArr = newArr[1] +"-"+ newArr[0]+"-"+ newArr[2];
+    //     console.log("new DAte", newDateArr);
+    //     return newDateArr;
+    //   })
+    //   let newArr = date.split("-");
+    //   let newDateArr = newArr[1] +"-"+ newArr[0]+"-"+ newArr[2];
+    //   console.log("new DAte", newDateArr);
+    //   return newDateArr;
+    // }
   },
   mounted() {
     this.requestData()

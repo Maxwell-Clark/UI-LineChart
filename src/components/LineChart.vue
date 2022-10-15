@@ -6,7 +6,6 @@
         <p>${{price}}</p>
         <p>{{post}}</p>
         <a id="siteUrl" :href="siteUrl" target='_blank'>Go To Post</a>
-
       </div>
     </div>
     
