@@ -65,15 +65,12 @@ export default {
                 }
               }
             })
-            console.log(this.documents);
           })
 
           if(this.documents.length > 0) {
-            console.log(this.documents)
               this.labels = this.documents.map((obj) => {
                     let newArr = obj.date.split("-");
                     let newDateArr = newArr[1] +"-"+ newArr[0]+"-"+ newArr[2];
-                    console.log("new DAte", newDateArr);
                     return newDateArr;
               })
               this.itemLabels = this.documents.map((obj) => obj.redditPostTitle)
@@ -82,18 +79,6 @@ export default {
               this.loaded = true
           }
       },
-    // async correctDates(docs){
-    //   this.documents.map((obj) =>{
-    //     let newArr = obj.date.split("-");
-    //     let newDateArr = newArr[1] +"-"+ newArr[0]+"-"+ newArr[2];
-    //     console.log("new DAte", newDateArr);
-    //     return newDateArr;
-    //   })
-    //   let newArr = date.split("-");
-    //   let newDateArr = newArr[1] +"-"+ newArr[0]+"-"+ newArr[2];
-    //   console.log("new DAte", newDateArr);
-    //   return newDateArr;
-    // }
   },
   mounted() {
     this.requestData()
